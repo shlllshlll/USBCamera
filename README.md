@@ -4,9 +4,11 @@
 
 **项目地址:**[USBCamera](https://github.com/shlllshlll/USBCamera)
 
-**下载地址:**[Github](https://github.com/shlllshlll/USBCamera/releases/latest) [国内地址](https://cloud.shlll.top/s/saNgZJS3FSNsQS9)
+**下载地址:**[国外地址](https://github.com/shlllshlll/USBCamera/releases/latest)、[国内地址](https://cloud.shlll.top/s/saNgZJS3FSNsQS9)
 
-<center><img src="https://image.shlll.top/images/2019/12/10/Screenshot_2019-12-10-01-36-53-800_com.shlll.usbcamera.jpg" width="40%" height="40%" /></center>
+<p align="center">
+<img src="pictures/screenshot.jpg" width="45%" height="45%"/>
+</p>
 
 ## 兼容性测试
 
