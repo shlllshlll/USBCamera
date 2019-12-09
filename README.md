@@ -6,6 +6,8 @@
 
 **下载地址:**[Github](https://github.com/shlllshlll/USBCamera/releases/latest) [国内地址](https://cloud.shlll.top/s/saNgZJS3FSNsQS9)
 
+<center><img src="https://image.shlll.top/images/2019/12/10/Screenshot_2019-12-10-01-36-53-800_com.shlll.usbcamera.jpg" width="40%" height="40%" /></center>
+
 ## 兼容性测试
 
 | 机型      | 系统版本   | 安卓版本  | 是否可用 | 问题描述                                                     |
