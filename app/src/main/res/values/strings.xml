@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">USBCamera</string>
+    <string name="action_resolution">Resolution</string>
+    <string name="action_focus">Focus</string>
+    <string name="msg_camera_open_fail">Sorry,camera not opened</string>
+    <string name="msg_focusing">Focusing...</string>
+    <string name="msg_capturesaved">Capture saved</string>
+    <string name="msg_permissiondeny">Get germission failed, exiting...</string>
+</resources>

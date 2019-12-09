@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">USB摄像头</string>
+    <string name="action_resolution">分辨率</string>
+    <string name="action_focus">对焦</string>
+    <string name="msg_camera_open_fail">抱歉，相机未连接</string>
+    <string name="msg_focusing">正在对焦中...</string>
+    <string name="msg_capturesaved">图片已保存</string>
+    <string name="msg_permissiondeny">获取权限失败，正在退出...</string>
+</resources>

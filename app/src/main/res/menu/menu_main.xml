@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.shlll.usbcamera.MainActivity">
+    <item
+        android:id="@+id/action_resolution"
+        android:orderInCategory="100"
+        android:title="@string/action_resolution"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_focus"
+        android:orderInCategory="100"
+        android:title="@string/action_focus"
+        app:showAsAction="never" />
+</menu>
