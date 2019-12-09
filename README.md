@@ -3,6 +3,7 @@
 这是一个USB摄像头APP，基于[UVCCamera](https://github.com/saki4510t/UVCCamera)和[AndroidUSBCamera](https://github.com/jiangdongguo/AndroidUSBCamera)。实现了外接USB摄像头的预览与图片保存功能，同时解决了原项目中一些bug和问题。照片会保存到手机根目录下的USBCamera文件夹下，同时也会保存到相册。
 
 **项目地址:**[USBCamera](https://github.com/shlllshlll/USBCamera)
+
 **下载地址:**[Github](https://github.com/shlllshlll/USBCamera/releases/latest) [国内地址](https://cloud.shlll.top/s/saNgZJS3FSNsQS9)
 
 ## 兼容性测试
@@ -19,13 +20,21 @@
 ## 解决的问题
 
 1. **在部分Android9以上版本无法使用**
+
 此问题是由于Android9中部分设备的UVC摄像头的ID等信息发生了变化，原作者在源码中已修复此问题。
+
 2. **需要手动选择USB设备才可使用**
+
 目前构建的APP，可自动寻找USB摄像头并打开。
+
 3. **Android9中在程序运行时拔出摄像头会导致程序崩溃**
+
 根据Github Pull Request [#454](https://github.com/saki4510t/UVCCamera/pull/454)，重新编译后问题已解决。
+
 4. **JNI库中存在的内存泄露问题**
+
 根据Github Issue [#259](https://github.com/saki4510t/UVCCamera/issues/259)已修改SO库中的空指针错误，重新编译后问题已解决。
+
 5. **解决新版NDK对ABI支持的变动导致JNI编译失败的问题**
 6. **将项目迁移到AndroidX**
 7. **解决Issues [#244](https://github.com/saki4510t/UVCCamera/issues/244)**
