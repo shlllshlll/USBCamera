@@ -25,6 +25,7 @@
 | 华为Mate30 |  EMUI10.0  | Android10 |    是    |                              无                              |
 |   华为M3   | EMUI5.0.4  | Android7  |    是    |                              无                              |
 | 一加6T | - | Android9 | 是 | 无 |
+| VIVO X23 | FuntouchOS | Android9 | 是 | 需要在设置内找到OTG选项并打开 |
 
 ## 解决的问题
 
