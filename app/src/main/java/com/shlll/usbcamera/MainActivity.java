@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private CameraViewInterface mUVCCameraView;
     private boolean isRequest;
     private boolean isPreview;
-    private boolean getPermisson = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
