@@ -7,20 +7,6 @@ import android.content.pm.PackageManager;
 import android.hardware.usb.UsbDevice;
 import android.net.Uri;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.serenegiant.usb.Size;
-import com.serenegiant.usb.common.AbstractUVCCameraHandler;
-import com.serenegiant.usb.widget.CameraViewInterface;
-import com.jiangdg.usbcamera.UVCCameraHelper;
-import com.jiangdg.usbcamera.utils.FileUtils;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.os.Environment;
 import android.util.Log;
 import android.view.Surface;
@@ -28,6 +14,18 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.design.widget.FloatingActionButton;
+
+import com.serenegiant.usb.Size;
+import com.serenegiant.usb.common.AbstractUVCCameraHandler;
+import com.serenegiant.usb.widget.CameraViewInterface;
+import com.jiangdg.usbcamera.UVCCameraHelper;
+import com.jiangdg.usbcamera.utils.FileUtils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

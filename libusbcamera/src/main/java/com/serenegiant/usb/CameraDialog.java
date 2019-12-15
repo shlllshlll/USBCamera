@@ -24,13 +24,14 @@
 package com.serenegiant.usb;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.hardware.usb.UsbDevice;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -58,10 +59,10 @@ public class CameraDialog extends DialogFragment {
 	 * @param parent FragmentActivity
 	 * @return
 	 */
-	public static CameraDialog showDialog(final Activity parent/* add parameters here if you need */) {
+	public static CameraDialog showDialog(final AppCompatActivity parent/* add parameters here if you need */) {
 		CameraDialog dialog = newInstance(/* add parameters here if you need */);
 		try {
-			dialog.show(parent.getFragmentManager(), TAG);
+			dialog.show(parent.getSupportFragmentManager(), TAG);
 		} catch (final IllegalStateException e) {
 			dialog = null;
 		}

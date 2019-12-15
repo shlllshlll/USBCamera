@@ -23,7 +23,7 @@
 
 package com.serenegiant.usb.common;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Surface;
 
 import com.serenegiant.glutils.RendererHolder;
@@ -42,8 +42,8 @@ public class UVCCameraHandlerMultiSurface extends AbstractUVCCameraHandler {
 	 * @return
 	 */
 	public static final UVCCameraHandlerMultiSurface createHandler(
-			final Activity parent, final CameraViewInterface cameraView,
-			final int width, final int height) {
+            final AppCompatActivity parent, final CameraViewInterface cameraView,
+            final int width, final int height) {
 
 		return createHandler(parent, cameraView, 1, width, height, UVCCamera.FRAME_FORMAT_MJPEG, UVCCamera.DEFAULT_BANDWIDTH);
 	}
@@ -58,8 +58,8 @@ public class UVCCameraHandlerMultiSurface extends AbstractUVCCameraHandler {
 	 * @return
 	 */
 	public static final UVCCameraHandlerMultiSurface createHandler(
-			final Activity parent, final CameraViewInterface cameraView,
-			final int width, final int height, final float bandwidthFactor) {
+            final AppCompatActivity parent, final CameraViewInterface cameraView,
+            final int width, final int height, final float bandwidthFactor) {
 
 		return createHandler(parent, cameraView, 1, width, height, UVCCamera.FRAME_FORMAT_MJPEG, bandwidthFactor);
 	}
@@ -74,8 +74,8 @@ public class UVCCameraHandlerMultiSurface extends AbstractUVCCameraHandler {
 	 * @return
 	 */
 	public static final UVCCameraHandlerMultiSurface createHandler(
-			final Activity parent, final CameraViewInterface cameraView,
-			final int encoderType, final int width, final int height) {
+            final AppCompatActivity parent, final CameraViewInterface cameraView,
+            final int encoderType, final int width, final int height) {
 
 		return createHandler(parent, cameraView, encoderType, width, height, UVCCamera.FRAME_FORMAT_MJPEG, UVCCamera.DEFAULT_BANDWIDTH);
 	}
@@ -91,8 +91,8 @@ public class UVCCameraHandlerMultiSurface extends AbstractUVCCameraHandler {
 	 * @return
 	 */
 	public static final UVCCameraHandlerMultiSurface createHandler(
-			final Activity parent, final CameraViewInterface cameraView,
-			final int encoderType, final int width, final int height, final int format) {
+            final AppCompatActivity parent, final CameraViewInterface cameraView,
+            final int encoderType, final int width, final int height, final int format) {
 
 		return createHandler(parent, cameraView, encoderType, width, height, format, UVCCamera.DEFAULT_BANDWIDTH);
 	}
@@ -109,8 +109,8 @@ public class UVCCameraHandlerMultiSurface extends AbstractUVCCameraHandler {
 	 * @return
 	 */
 	public static final UVCCameraHandlerMultiSurface createHandler(
-			final Activity parent, final CameraViewInterface cameraView,
-			final int encoderType, final int width, final int height, final int format, final float bandwidthFactor) {
+            final AppCompatActivity parent, final CameraViewInterface cameraView,
+            final int encoderType, final int width, final int height, final int format, final float bandwidthFactor) {
 
 		final CameraThread thread = new CameraThread(UVCCameraHandlerMultiSurface.class, parent, cameraView, encoderType, width, height, format, bandwidthFactor);
 		thread.start();
@@ -172,12 +172,12 @@ public class UVCCameraHandlerMultiSurface extends AbstractUVCCameraHandler {
 			public void run() {
 				synchronized (UVCCameraHandlerMultiSurface.this) {
 					if (mRendererHolder != null) {
-						try {
+//						try {
 							mRendererHolder.captureStill(path);
 							updateMedia(path);
-						} catch (FileNotFoundException e) {
-							e.printStackTrace();
-						}
+//						} catch (FileNotFoundException e) {
+//							e.printStackTrace();
+//						}
 					}
 				}
 			}

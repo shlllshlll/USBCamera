@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Surface;
@@ -391,7 +392,7 @@ public abstract class AbstractUVCCameraHandler extends Handler {
         private static final String TAG_THREAD = "CameraThread";
         private final Object mSync = new Object();
         private final Class<? extends AbstractUVCCameraHandler> mHandlerClass;
-        private final WeakReference<Activity> mWeakParent;
+        private final WeakReference<AppCompatActivity> mWeakParent;
         private final WeakReference<CameraViewInterface> mWeakCameraView;
         private final int mEncoderType;
         private final Set<CameraCallback> mCallbacks = new CopyOnWriteArraySet<CameraCallback>();
@@ -427,7 +428,7 @@ public abstract class AbstractUVCCameraHandler extends Handler {
          * bandwidthFactor
          */
         CameraThread(final Class<? extends AbstractUVCCameraHandler> clazz,
-                     final Activity parent, final CameraViewInterface cameraView,
+                     final AppCompatActivity parent, final CameraViewInterface cameraView,
                      final int encoderType, final int width, final int height, final int format,
                      final float bandwidthFactor) {
 
@@ -586,7 +587,7 @@ public abstract class AbstractUVCCameraHandler extends Handler {
         // 捕获静态图片
         public void handleCaptureStill(final String path) {
             if (DEBUG) Log.v(TAG_THREAD, "handleCaptureStill:");
-            final Activity parent = mWeakParent.get();
+            final AppCompatActivity parent = mWeakParent.get();
             if (parent == null) return;
 //			mSoundPool.play(mSoundId, 0.2f, 0.2f, 0, 0, 1.0f);	// play shutter sound
             try {
@@ -854,7 +855,7 @@ public abstract class AbstractUVCCameraHandler extends Handler {
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
         public void handleUpdateMedia(final String path) {
             if (DEBUG) Log.v(TAG_THREAD, "handleUpdateMedia:path=" + path);
-            final Activity parent = mWeakParent.get();
+            final AppCompatActivity parent = mWeakParent.get();
             final boolean released = (mHandler == null) || mHandler.mReleased;
             if (parent != null && parent.getApplicationContext() != null) {
                 try {

@@ -1,11 +1,10 @@
 package com.jiangdg.usbcamera;
 
-import android.app.Activity;
 import android.graphics.SurfaceTexture;
 import android.hardware.usb.UsbDevice;
 import android.os.Environment;
+import android.support.v7.app.AppCompatActivity;
 
-import com.jiangdg.usbcamera.R;
 import com.serenegiant.usb.DeviceFilter;
 import com.serenegiant.usb.Size;
 import com.serenegiant.usb.USBMonitor;
@@ -47,7 +46,7 @@ public class UVCCameraHelper {
     private UVCCameraHandler mCameraHandler;
     private USBMonitor.UsbControlBlock mCtrlBlock;
 
-    private Activity mActivity;
+    private AppCompatActivity mActivity;
     private CameraViewInterface mCamView;
 
     private UVCCameraHelper() {
@@ -76,7 +75,7 @@ public class UVCCameraHelper {
         void onDisConnectDev(UsbDevice device);
     }
 
-    public void initUSBMonitor(Activity activity, CameraViewInterface cameraView, final OnMyDevConnectListener listener) {
+    public void initUSBMonitor(AppCompatActivity activity, CameraViewInterface cameraView, final OnMyDevConnectListener listener) {
         this.mActivity = activity;
         this.mCamView = cameraView;
         mUSBMonitor = new USBMonitor(activity.getApplicationContext(), new USBMonitor.OnDeviceConnectListener() {
