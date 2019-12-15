@@ -668,7 +668,6 @@ public final class USBMonitor {
 				sb.append(device.getVersion());			sb.append("#");	// API >= 23
 			}
 		}
-
 //		if (DEBUG) Log.v(TAG, "getDeviceKeyName:" + sb.toString());
 		return sb.toString();
 	}

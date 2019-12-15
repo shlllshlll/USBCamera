@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">USBCamera</string>
-    <string name="action_resolution">Resolution</string>
-    <string name="action_focus">Focus</string>
+    <string name="action_about">about</string>
+    <string name="diag_about_title">About</string>
+    <string name="diag_about_message">This is USBCamera APP.</string>
+    <string name="msg_usb_device_attached">USB device attached</string>
+    <string name="msg_usb_device_detached">USB device detached</string>
     <string name="msg_camera_open_fail">Sorry,camera not opened</string>
     <string name="msg_focusing">Focusing...</string>
     <string name="msg_capturesaved">Capture saved</string>

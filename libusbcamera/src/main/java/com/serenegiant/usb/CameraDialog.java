@@ -40,7 +40,7 @@ import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.Spinner;
 
-import com.jiangdg.usbcamera.R;
+import com.shlll.libusbcamera.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -22,8 +22,8 @@
   ~  may have a different license, see the respective files.
   -->
 <resources>
-    <string name="select">Select USB Web Camera</string>
-    <string name="camera">Camera</string>
-    <string name="refresh">Refresh</string>
-    <string name="no_device">No USB camera found</string>
+    <string name="select">选择USB摄像头</string>
+    <string name="camera">摄像头</string>
+    <string name="refresh">刷新</string>
+    <string name="no_device">未找到USB摄像头</string>
 </resources>

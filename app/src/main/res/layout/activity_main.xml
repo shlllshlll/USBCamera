@@ -25,7 +25,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar">
 
-        <com.serenegiant.usb.widget.UVCCameraTextureView
+        <com.serenegiant.widget.SimpleUVCCameraTextureView
             android:id="@+id/camera_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
