@@ -26,4 +26,8 @@
     <string name="camera">Camera</string>
     <string name="refresh">Refresh</string>
     <string name="no_device">No USB camera found</string>
+    <string name="msg_usb_device_attached">USB device attached</string>
+    <string name="msg_usb_device_detached">USB device detached</string>
+    <string name="msg_camera_open_fail">Sorry,camera not opened</string>
+    <string name="msg_capturesaved">Capture saved</string>
 </resources>

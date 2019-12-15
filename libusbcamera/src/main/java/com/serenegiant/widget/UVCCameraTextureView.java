@@ -33,20 +33,20 @@ import android.view.TextureView;
  * you can show this view in the center of screen and keep the aspect ratio of content
  * XXX it is better that can set the aspect raton a a xml property
  */
-public class SimpleUVCCameraTextureView extends TextureView    // API >= 14
+public class UVCCameraTextureView extends TextureView    // API >= 14
 	implements AspectRatioViewInterface {
 
     private double mRequestedAspect = -1.0;
 
-	public SimpleUVCCameraTextureView(final Context context) {
+	public UVCCameraTextureView(final Context context) {
 		this(context, null, 0);
 	}
 
-	public SimpleUVCCameraTextureView(final Context context, final AttributeSet attrs) {
+	public UVCCameraTextureView(final Context context, final AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 
-	public SimpleUVCCameraTextureView(final Context context, final AttributeSet attrs, final int defStyle) {
+	public UVCCameraTextureView(final Context context, final AttributeSet attrs, final int defStyle) {
 		super(context, attrs, defStyle);
 	}
 

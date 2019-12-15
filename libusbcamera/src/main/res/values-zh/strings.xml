@@ -26,4 +26,8 @@
     <string name="camera">摄像头</string>
     <string name="refresh">刷新</string>
     <string name="no_device">未找到USB摄像头</string>
+    <string name="msg_usb_device_attached">USB设备已连接</string>
+    <string name="msg_usb_device_detached">USB设备已断开</string>
+    <string name="msg_camera_open_fail">抱歉，相机未连接</string>
+    <string name="msg_capturesaved">图片已保存</string>
 </resources>
