@@ -4,7 +4,7 @@
 
 **项目地址:**[USBCamera](https://github.com/shlllshlll/USBCamera)
 
-**下载地址:**[国外地址](https://github.com/shlllshlll/USBCamera/releases/latest)、[国内地址](https://cloud.shlll.top/s/saNgZJS3FSNsQS9)
+**下载地址:**[国外地址](https://github.com/shlllshlll/USBCamera/releases)、[国内地址](https://cloud.shlll.top/s/g9mCq3Br6fLtg5N)
 
 <p align="center">
 <img src="pictures/screenshot.jpg" width="45%" height="45%"/>
