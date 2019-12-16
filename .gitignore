@@ -1,10 +1,12 @@
 *.iml
+*.so
 .gradle
 /local.properties
 /.idea/
 .DS_Store
 release/
 build/
+obj/
 /captures
 .externalNativeBuild
 .cxx
