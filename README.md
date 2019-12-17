@@ -113,6 +113,7 @@ mUSBCameraHelper.saveCapturePicture();
 | 一加6T | - | Android9 | 是 | 无 |
 | VIVO X21i | FuntouchOS | Android9 | 否 | 在设置选项中打开OTG后可检测到摄像头，可正确获取分辨率设置，但无画面显示 |
 | VIVO X23 | FuntouchOS | Android9 | 是 | 需要在设置内找到OTG选项并打开 |
+| OPPO K5 | ColorOS6.1 | Android9 | 是 | 需要在设置内找到OTG连接选项并打开 |
 
 ## 解决的问题
 
