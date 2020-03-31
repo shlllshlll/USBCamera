@@ -1,7 +1,9 @@
 package com.shlll.usbcamera;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.hardware.usb.UsbDevice;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -17,7 +19,10 @@ import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -36,10 +41,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mUSBCameraHelper.saveCapturePicture();
+//                throw new RuntimeException("Crash APP");
             }
         });
 
@@ -68,6 +75,24 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle(getResources().getString(R.string.diag_about_title))
                     .setMessage(getResources().getString(R.string.diag_about_message));
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        } else if (id == R.id.action_usbinfo) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle(getResources().getString(R.string.diag_usbinfo_title));
+
+            String diag_str = "";
+            final List<UsbDevice> device_list =  mUSBCameraHelper.getDeviceList();
+
+            for (UsbDevice device: device_list) {
+                diag_str += "Class:" + device.getDeviceClass()
+                        + ",subClass:" + device.getDeviceSubclass()
+                        + ",VID:" + device.getVendorId()
+                        + ",PID:" + device.getProductId() + "\n";
+            }
+
+            builder.setMessage(diag_str);
 
             AlertDialog dialog = builder.create();
             dialog.show();

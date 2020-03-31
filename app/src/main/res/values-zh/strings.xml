@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">USB摄像头</string>
     <string name="action_about">关于</string>
+    <string name="action_usbinfo">USB设备信息</string>
     <string name="diag_about_title">关于</string>
     <string name="diag_about_message">这是一个USB摄像头APP。</string>
+    <string name='diag_usbinfo_title'>USB设备信息</string>
     <string name="msg_permissiondeny">获取权限失败，正在退出...</string>
+    <string name="acra_notification_text">抱歉程序崩溃了，请将错误报告发送给开发者。</string>
+    <string name="acra_notification_title">USB摄像头崩溃了</string>
+    <string name="acra_notification_channel">"ACRA</string>
 </resources>

@@ -51,6 +51,14 @@ public class USBCameraHelper {
         mUSBMonitor = new USBMonitor(context, mOnDeviceConnectListener);
     }
 
+    public List<UsbDevice> getDeviceList() {
+        final List<DeviceFilter> filter = null;
+//        final List<DeviceFilter> filter = DeviceFilter.getDeviceFilters(mContext, com.shlll.libusbcamera.R.xml.device_filter);
+        final List<UsbDevice> deviceList = mUSBMonitor.getDeviceList(filter);
+
+        return deviceList;
+    }
+
     public synchronized void start() {
         mUSBMonitor.register();
         synchronized (mSync) {

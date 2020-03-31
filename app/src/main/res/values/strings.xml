@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">USBCamera</string>
-    <string name="action_about">about</string>
+    <string name="action_about">About</string>
+    <string name="action_usbinfo">USB Info</string>
     <string name="diag_about_title">About</string>
     <string name="diag_about_message">This is USBCamera APP.</string>
+    <string name='diag_usbinfo_title'>USB Info</string>
     <string name="msg_permissiondeny">Get germission failed, exiting...</string>
+    <string name="acra_notification_text">Sorry, the application crashed. Please send the report to the developer.</string>
+    <string name="acra_notification_title">USB Camera Crash</string>
+    <string name="acra_notification_channel">"ACRA</string>
 </resources>

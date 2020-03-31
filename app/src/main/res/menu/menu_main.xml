@@ -7,4 +7,9 @@
         android:orderInCategory="100"
         android:title="@string/action_about"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_usbinfo"
+        android:orderInCategory="100"
+        android:title="@string/action_usbinfo"
+        app:showAsAction="never" />
 </menu>
