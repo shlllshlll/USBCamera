@@ -1,7 +1,6 @@
 package com.shlll.usbcamera;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.Log;
 
@@ -9,7 +8,6 @@ import org.acra.ReportField;
 import org.acra.data.CrashReportData;
 import org.acra.sender.ReportSender;
 import org.acra.sender.ReportSenderException;
-import org.json.JSONException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,6 +20,7 @@ public class AcraFileSender implements ReportSender {
     public void send(Context context, CrashReportData report) throws ReportSenderException {
         String error_log = "";
         error_log += report.getString(ReportField.LOGCAT);
+//        final String storagePath = context.getExternalFilesDir(null).getAbsolutePath() + File.separator + "USBCamera";
         final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "USBCamera";
         final String crashFileName = "CrashReport.txt";
         final File storageDir = new File(storagePath);

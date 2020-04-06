@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,9 +41,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab_capture = findViewById(R.id.fab_capture);
+        FloatingActionButton fab_mirror = findViewById(R.id.fab_mirror);
+        FloatingActionButton fab_rotate_right = findViewById(R.id.fab_rotate_right);
+        FloatingActionButton fab_rotate_left = findViewById(R.id.fab_rotate_left);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab_capture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mUSBCameraHelper.saveCapturePicture();
@@ -50,8 +54,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        fab_mirror.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mUSBCameraHelper.toggleMirror();
+            }
+        });
+
+        fab_rotate_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mUSBCameraHelper.rightRotate();
+            }
+        });
+
+        fab_rotate_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mUSBCameraHelper.leftRotate();
+            }
+        });
+
         mUVCCameraView = (UVCCameraTextureView)findViewById(R.id.camera_view);
-        mUSBCameraHelper = new USBCameraHelper(this, mUVCCameraView);
+
+        FrameLayout frame_layout = (FrameLayout)findViewById(R.id.camera_view_frame);
+        mUSBCameraHelper = new USBCameraHelper(this, mUVCCameraView, frame_layout);
 
         checkFilePermission();
     }

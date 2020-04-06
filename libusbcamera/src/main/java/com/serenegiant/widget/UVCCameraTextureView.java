@@ -24,8 +24,13 @@
 package com.serenegiant.widget;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.TextureView;
+import android.widget.FrameLayout;
 
 /**
  * change the view size with keeping the specified aspect ratio.
@@ -33,10 +38,12 @@ import android.view.TextureView;
  * you can show this view in the center of screen and keep the aspect ratio of content
  * XXX it is better that can set the aspect raton a a xml property
  */
-public class UVCCameraTextureView extends TextureView    // API >= 14
-	implements AspectRatioViewInterface {
+public class UVCCameraTextureView extends TextureView {  // API >= 14
 
-    private double mRequestedAspect = -1.0;
+	private static final String TAG = "UVCCameraTextureView";
+	private int mLayoutWidth, mLayoutHeight;
+	private float mAspectRatio, mLayoutAspectRatio;
+	private int mRotation = 0;
 
 	public UVCCameraTextureView(final Context context) {
 		this(context, null, 0);
@@ -50,56 +57,74 @@ public class UVCCameraTextureView extends TextureView    // API >= 14
 		super(context, attrs, defStyle);
 	}
 
-	@Override
-	public void onResume() {
+	public void setAspectRatio(final float aspectRatio, final int layoutWidth, final int layoutHeight) {
+		mAspectRatio = aspectRatio;
+		mLayoutWidth = layoutWidth;
+		mLayoutHeight = layoutHeight;
+		mLayoutAspectRatio = layoutHeight / (float)layoutWidth;
+		setHeightWidth();
+
+//		Log.i(TAG, "Radio:" + String.valueOf(mAspectRatio) + ",LayoutRadio:" + String.valueOf(mLayoutAspectRatio));
+	}
+
+	public void rightRotate() {
+		mRotation += 90;
+		if (mRotation == 360)
+			mRotation = 0;
+		setHeightWidth();
+		setRotation(mRotation);
+	}
+
+	public void leftRotate() {
+		mRotation -= 90;
+		if (mRotation == -90)
+			mRotation = 270;
+		setHeightWidth();
+		setRotation(mRotation);
+	}
+
+	public void toggleMirror() {
+		if (mRotation == 0 || mRotation == 180) {
+			setScaleX(-getScaleX());
+		} else {
+			setScaleY(-getScaleY());
+		}
 	}
 
 	@Override
-	public void onPause() {
+	public Bitmap getBitmap() {
+		Bitmap origin = super.getBitmap();
+
+		int width = origin.getWidth();
+		int height = origin.getHeight();
+		Matrix matrix = new Matrix();
+		matrix.postScale(getScaleX(), getScaleY());
+		matrix.postRotate(mRotation);
+
+		Bitmap resmap = Bitmap.createBitmap(origin, 0, 0, width, height, matrix, false);
+
+		return resmap;
 	}
 
-	@Override
-    public void setAspectRatio(final double aspectRatio) {
-        if (aspectRatio < 0) {
-            throw new IllegalArgumentException();
-        }
-        if (mRequestedAspect != aspectRatio) {
-            mRequestedAspect = aspectRatio;
-            requestLayout();
-        }
-    }
+	private void setHeightWidth() {
+		int height, width;
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-
-		if (mRequestedAspect > 0) {
-			int initialWidth = MeasureSpec.getSize(widthMeasureSpec);
-			int initialHeight = MeasureSpec.getSize(heightMeasureSpec);
-
-			final int horizPadding = getPaddingLeft() + getPaddingRight();
-			final int vertPadding = getPaddingTop() + getPaddingBottom();
-			initialWidth -= horizPadding;
-			initialHeight -= vertPadding;
-
-			final double viewAspectRatio = (double)initialWidth / initialHeight;
-			final double aspectDiff = mRequestedAspect / viewAspectRatio - 1;
-
-			if (Math.abs(aspectDiff) > 0.01) {
-				if (aspectDiff > 0) {
-					// width priority decision
-					initialHeight = (int) (initialWidth / mRequestedAspect);
-				} else {
-					// height priority decison
-					initialWidth = (int) (initialHeight * mRequestedAspect);
-				}
-				initialWidth += horizPadding;
-				initialHeight += vertPadding;
-				widthMeasureSpec = MeasureSpec.makeMeasureSpec(initialWidth, MeasureSpec.EXACTLY);
-				heightMeasureSpec = MeasureSpec.makeMeasureSpec(initialHeight, MeasureSpec.EXACTLY);
+		FrameLayout.LayoutParams params;
+		if (mRotation == 0 || mRotation == 180) {
+			width = mLayoutWidth;
+			height = (int) (mLayoutWidth / mAspectRatio);
+		} else {
+			if (mLayoutAspectRatio > mAspectRatio) {
+				width = mLayoutWidth;
+				height = (int)(mLayoutWidth * mAspectRatio);
+			} else {
+				width = (int)(mLayoutHeight / mAspectRatio);
+				height = mLayoutHeight;
 			}
 		}
 
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
+//		Log.i(TAG, "height:" + String.valueOf(height) + ",width:"+ String.valueOf(width));
+		setLayoutParams(new FrameLayout.LayoutParams(width, height, Gravity.CENTER));
+	}
 
 }

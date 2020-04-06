@@ -25,8 +25,15 @@ allprojects {
         maven { url'https://maven.aliyun.com/repository/central/' }
 //        google()
 //        jcenter()
-        maven { url 'http://raw.github.com/saki4510t/libcommon/master/repository/' }
+        maven { url 'https://raw.github.com/saki4510t/libcommon/master/repository/' }
     }
+
+//    gradle.projectsEvaluated {
+//        tasks.withType(JavaCompile) {
+////            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+//            options.compilerArgs << "-Xlint:deprecation"
+//        }
+//    }
 }
 
 task clean(type: Delete) {

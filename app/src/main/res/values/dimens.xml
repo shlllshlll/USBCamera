@@ -1,3 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_icon">30dp</dimen>
+    <dimen name="fab_small">45dp</dimen>
+    <dimen name="fab_small_icon">22dp</dimen>
 </resources>

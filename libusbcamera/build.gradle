@@ -12,7 +12,7 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
 
@@ -58,6 +58,7 @@ task ndkBuild(type: Exec, description: 'Compile JNI source via NDK') {
     println('executing ndkBuild')
     def ndkBuildPath = getNdkBuildPath();
     commandLine ndkBuildPath, '-j8', '-C', file('src/main').absolutePath
+    outputs.dir(file('src/main/libs'))
 }
 
 task ndkClean(type: Exec, description: 'clean JNI libraries') {
@@ -73,6 +74,6 @@ dependencies {
 
 //    api "com.serenegiant:common:4.1.1"
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

@@ -1,15 +1,21 @@
 package com.shlll.libusbcamera;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
 import android.hardware.usb.UsbDevice;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Surface;
+import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.serenegiant.usb.DeviceFilter;
@@ -22,9 +28,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class USBCameraHelper {
     private static final String TAG = "USBCameraHelper";
@@ -32,6 +40,7 @@ public class USBCameraHelper {
     private USBMonitor mUSBMonitor;
     private UVCCamera mUVCCamera;
     private UVCCameraTextureView mUVCCameraView;
+    private FrameLayout mFrameLayout;
     private Surface mPreviewSurface;
     private Context mContext;
 
@@ -39,21 +48,56 @@ public class USBCameraHelper {
     private Handler mWorkerHandler;
     private long mWorkerThreadID = -1;
 
-    public USBCameraHelper(final Context context, final UVCCameraTextureView cameraView) {
+    public USBCameraHelper(final Context context, final UVCCameraTextureView cameraView, final FrameLayout frameLayout) {
         if (mWorkerHandler == null) {
             mWorkerHandler = HandlerThreadHandler.createHandler(TAG);
             mWorkerThreadID = mWorkerHandler.getLooper().getThread().getId();
         }
 
         mContext = context;
+        mFrameLayout = frameLayout;
         mUVCCameraView = cameraView;
-        mUVCCameraView.setAspectRatio(UVCCamera.DEFAULT_PREVIEW_WIDTH / (float)UVCCamera.DEFAULT_PREVIEW_HEIGHT);
+
+        final ViewTreeObserver vto = mFrameLayout.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                float aspect_ratio = UVCCamera.DEFAULT_PREVIEW_WIDTH / (float)UVCCamera.DEFAULT_PREVIEW_HEIGHT;
+                int layout_width  = mFrameLayout.getMeasuredWidth();
+                int layout_height = mFrameLayout.getMeasuredHeight();
+                mUVCCameraView.setAspectRatio(aspect_ratio, layout_width, layout_height);
+
+                if (Build.VERSION.SDK_INT < 16)
+                    mFrameLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                else
+                    mFrameLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
         mUSBMonitor = new USBMonitor(context, mOnDeviceConnectListener);
     }
 
+    public void rightRotate() {
+        checkCameraOpened();
+        mUVCCameraView.rightRotate();
+    }
+
+    public void leftRotate() {
+        checkCameraOpened();
+        mUVCCameraView.leftRotate();
+    }
+
+    public void toggleMirror() {
+        checkCameraOpened();
+        mUVCCameraView.toggleMirror();
+    }
+
+    /**
+     * Get current USB device list.
+     * @return List of UsbDeice object.
+     */
     public List<UsbDevice> getDeviceList() {
-        final List<DeviceFilter> filter = null;
-//        final List<DeviceFilter> filter = DeviceFilter.getDeviceFilters(mContext, com.shlll.libusbcamera.R.xml.device_filter);
+        final List<DeviceFilter> filter = DeviceFilter.getDeviceFilters(mContext, com.shlll.libusbcamera.R.xml.device_filter);
         final List<UsbDevice> deviceList = mUSBMonitor.getDeviceList(filter);
 
         return deviceList;
@@ -91,38 +135,62 @@ public class USBCameraHelper {
         mUVCCameraView = null;
     }
 
+    /**
+     * Save current picture to system and add picture to gallery.
+     */
     public void saveCapturePicture() {
-        if (mUVCCamera == null) {
-            showShortMsg(mContext.getResources().getString(R.string.msg_camera_open_fail));
-            return;
-        }
+        checkCameraOpened();
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmssSSS").format(new Date());
         String imageFileName = timeStamp + ".jpg";
-        String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "USBCamera";
-        File storageDir = new File(storagePath);
-        if (!storageDir.exists()) {
-            storageDir.mkdir();
-        }
-        String imageFilePath = storagePath + File.separator + imageFileName;
-        Log.d(TAG, imageFilePath);
-
-        Bitmap bitmap = mUVCCameraView.getBitmap();
+        OutputStream fos = null;
+        Uri imageUri = null;
+        final ContentResolver resolver = mContext.getContentResolver();
 
         try {
-            File file = new File(imageFilePath);
-            FileOutputStream out = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-            out.flush();
-            out.close();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                String storagePath = Environment.DIRECTORY_PICTURES + File.separator + "USBCamera";
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, imageFileName);
+                contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg");
+                contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, storagePath);
+
+                imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+                fos = resolver.openOutputStream(imageUri);
+                Bitmap bitmap = mUVCCameraView.getBitmap();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                fos.close();
+            } else {
+                final String storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + File.separator + "USBCamera";
+                File storageDir = new File(storagePath);
+                if (!storageDir.exists()) {
+                    storageDir.mkdir();
+                }
+
+                File image = new File(storagePath, imageFileName);
+                fos = new FileOutputStream(image);
+                Bitmap bitmap = mUVCCameraView.getBitmap();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                fos.close();
+                galleryAddPic(image.toString());
+            }
+            showShortMsg(mContext.getResources().getString(R.string.msg_capturesaved));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+                e.printStackTrace();
         } catch (IOException e) {
+            if (imageUri != null)
+            {
+                // Don't leave an orphan entry in the MediaStore
+                resolver.delete(imageUri, null, null);
+            }
             e.printStackTrace();
         }
+    }
 
-        galleryAddPic(imageFilePath);
-        showShortMsg(mContext.getResources().getString(R.string.msg_capturesaved));
+    private void checkCameraOpened() {
+        if (mUVCCamera == null) {
+            showShortMsg(mContext.getResources().getString(R.string.msg_camera_open_fail));
+        }
     }
 
     private final USBMonitor.OnDeviceConnectListener mOnDeviceConnectListener = new USBMonitor.OnDeviceConnectListener() {
@@ -184,6 +252,9 @@ public class USBCameraHelper {
         }
     };
 
+    /**
+     * Request USB device permission.
+     */
     private void requestPermission() {
         final List<DeviceFilter> filter = DeviceFilter.getDeviceFilters(mContext, com.shlll.libusbcamera.R.xml.device_filter);
         final List<UsbDevice> deviceList = mUSBMonitor.getDeviceList(filter);
@@ -197,6 +268,9 @@ public class USBCameraHelper {
         }
     }
 
+    /**
+     * Release the USB camera device.
+     */
     private synchronized void releaseCamera() {
         synchronized (mSync) {
             if (mUVCCamera != null) {
