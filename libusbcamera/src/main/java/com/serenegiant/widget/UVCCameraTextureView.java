@@ -115,15 +115,15 @@ public class UVCCameraTextureView extends TextureView {  // API >= 14
 			height = (int) (mLayoutWidth / mAspectRatio);
 		} else {
 			if (mLayoutAspectRatio > mAspectRatio) {
-				width = mLayoutWidth;
-				height = (int)(mLayoutWidth * mAspectRatio);
+				height = mLayoutWidth;
+				width = (int)(mLayoutWidth * mAspectRatio);
 			} else {
-				width = (int)(mLayoutHeight / mAspectRatio);
-				height = mLayoutHeight;
+				height = (int)(mLayoutHeight / mAspectRatio);
+				width = mLayoutHeight;
 			}
 		}
 
-//		Log.i(TAG, "height:" + String.valueOf(height) + ",width:"+ String.valueOf(width));
+		Log.i(TAG, "height:" + String.valueOf(height) + ",width:"+ String.valueOf(width));
 		setLayoutParams(new FrameLayout.LayoutParams(width, height, Gravity.CENTER));
 	}
 

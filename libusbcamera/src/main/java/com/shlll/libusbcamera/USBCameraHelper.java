@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.SurfaceTexture;
 import android.hardware.usb.UsbDevice;
 import android.net.Uri;
@@ -67,7 +68,7 @@ public class USBCameraHelper {
                 int layout_height = mFrameLayout.getMeasuredHeight();
                 mUVCCameraView.setAspectRatio(aspect_ratio, layout_width, layout_height);
 
-                if (Build.VERSION.SDK_INT < 16)
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
                     mFrameLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 else
                     mFrameLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
@@ -75,6 +76,8 @@ public class USBCameraHelper {
         });
 
         mUSBMonitor = new USBMonitor(context, mOnDeviceConnectListener);
+
+
     }
 
     public void rightRotate() {
