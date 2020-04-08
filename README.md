@@ -4,7 +4,7 @@
 
 **项目地址:**[USBCamera](https://github.com/shlllshlll/USBCamera)
 
-**下载地址:**[国外地址](https://github.com/shlllshlll/USBCamera/releases)、[国内地址](https://cloud.shlll.top/s/g9mCq3Br6fLtg5N)
+**下载地址:**[Github](https://github.com/shlllshlll/USBCamera/releases)、[fir.im](http://fir.shlll.top/usb)、[蒲公英，密码：1234](https://www.pgyer.com/USBCamera)
 
 <p align="center">
 <img src="pictures/screenshot.jpg" width="45%" height="45%"/>
@@ -18,7 +18,7 @@
 
 其中libusbcamera相机库基于[UVCCamera](https://github.com/saki4510t/UVCCamera)，并添加了USBCameraHelper类简化调用。此外去除了原库中与UI相关的代码，去除了AndoridX依赖。提供了USB相机的连接、预览与图片保存接口。
 
-示例APP的基本功能与前一版本相同，但精简了分辨率与对焦两个功能。
+增加了图像镜像、向左向右旋转，以及预设的四个摄像头角度等功能，适配了外部硬件拍照按钮，同时增加了程序崩溃检测、USB接入设备检测等功能。
 
 
 ### V1.0
@@ -89,7 +89,7 @@ protected void onStop() {
 }
 ```
 
-保存图片使用如下的API即可，调用后会自动在手机根目录下创建USBCamera文件夹，并将图片以时间名保存，同时存储到相册中。
+保存图片使用如下的API即可，调用后会自动在手机Picture目录下USBCamera文件夹，并将图片以时间名保存，同时存储到相册中。
 
 ```java
 mUSBCameraHelper.saveCapturePicture();

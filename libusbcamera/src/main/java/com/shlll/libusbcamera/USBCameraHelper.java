@@ -1,25 +1,27 @@
 package com.shlll.libusbcamera;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.SurfaceTexture;
 import android.hardware.usb.UsbDevice;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Surface;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.serenegiant.usb.DeviceFilter;
+import com.serenegiant.usb.IButtonCallback;
 import com.serenegiant.usb.USBMonitor;
 import com.serenegiant.usb.UVCCamera;
 import com.serenegiant.utils.HandlerThreadHandler;
@@ -33,7 +35,6 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 public class USBCameraHelper {
     private static final String TAG = "USBCameraHelper";
@@ -44,10 +45,20 @@ public class USBCameraHelper {
     private FrameLayout mFrameLayout;
     private Surface mPreviewSurface;
     private Context mContext;
+    private OnCameraButtonListener mButtonListener = null;
+    private Vibrator mVibraotor = null;
 
     /** Event Handler */
     private Handler mWorkerHandler;
     private long mWorkerThreadID = -1;
+
+    public interface OnCameraButtonListener {
+        public void onCameraButton();
+    }
+
+    public void setOnCameraButtonListener(OnCameraButtonListener listener) {
+        mButtonListener = listener;
+    }
 
     public USBCameraHelper(final Context context, final UVCCameraTextureView cameraView, final FrameLayout frameLayout) {
         if (mWorkerHandler == null) {
@@ -58,6 +69,8 @@ public class USBCameraHelper {
         mContext = context;
         mFrameLayout = frameLayout;
         mUVCCameraView = cameraView;
+        mUSBMonitor = new USBMonitor(mContext, mOnDeviceConnectListener);
+        mVibraotor = (Vibrator)mContext.getSystemService(Context.VIBRATOR_SERVICE);
 
         final ViewTreeObserver vto = mFrameLayout.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -74,25 +87,30 @@ public class USBCameraHelper {
                     mFrameLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
-
-        mUSBMonitor = new USBMonitor(context, mOnDeviceConnectListener);
-
-
     }
 
     public void rightRotate() {
-        checkCameraOpened();
+        if (!checkCameraOpened())
+            return;
         mUVCCameraView.rightRotate();
     }
 
     public void leftRotate() {
-        checkCameraOpened();
+        if (!checkCameraOpened())
+            return;
         mUVCCameraView.leftRotate();
     }
 
     public void toggleMirror() {
-        checkCameraOpened();
+        if (!checkCameraOpened())
+            return;
         mUVCCameraView.toggleMirror();
+    }
+
+    public void setPosition(UVCCameraTextureView.TransState pos) {
+        if (!checkCameraOpened())
+            return;
+        mUVCCameraView.setPosition(pos);
     }
 
     /**
@@ -142,7 +160,8 @@ public class USBCameraHelper {
      * Save current picture to system and add picture to gallery.
      */
     public void saveCapturePicture() {
-        checkCameraOpened();
+        if (!checkCameraOpened())
+            return;
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmssSSS").format(new Date());
         String imageFileName = timeStamp + ".jpg";
@@ -177,6 +196,13 @@ public class USBCameraHelper {
                 fos.close();
                 galleryAddPic(image.toString());
             }
+
+            if (mVibraotor != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                    mVibraotor.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
+                else
+                    mVibraotor.vibrate(100);
+            }
             showShortMsg(mContext.getResources().getString(R.string.msg_capturesaved));
         } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -190,10 +216,13 @@ public class USBCameraHelper {
         }
     }
 
-    private void checkCameraOpened() {
+    private boolean checkCameraOpened() {
         if (mUVCCamera == null) {
             showShortMsg(mContext.getResources().getString(R.string.msg_camera_open_fail));
+            return false;
         }
+
+        return true;
     }
 
     private final USBMonitor.OnDeviceConnectListener mOnDeviceConnectListener = new USBMonitor.OnDeviceConnectListener() {
@@ -211,6 +240,18 @@ public class USBCameraHelper {
                 public void run() {
                     final UVCCamera camera = new UVCCamera();
                     camera.open(ctrlBlock);
+                    camera.setButtonCallback(new IButtonCallback() {
+                        @Override
+                        public void onButton(final int button, final int state) {
+                            ((Activity)mContext).runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (mButtonListener != null)
+                                        mButtonListener.onCameraButton();
+                                }
+                            });
+                        }
+                    });
 
                     if (mPreviewSurface != null) {
                         mPreviewSurface.release();

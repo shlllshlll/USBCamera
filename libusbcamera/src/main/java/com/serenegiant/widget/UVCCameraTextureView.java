@@ -38,12 +38,22 @@ import android.widget.FrameLayout;
  * you can show this view in the center of screen and keep the aspect ratio of content
  * XXX it is better that can set the aspect raton a a xml property
  */
-public class UVCCameraTextureView extends TextureView {  // API >= 14
-
+public class UVCCameraTextureView extends TextureView {
+	public enum TransState {CUSTOM, UP, DOWN, RIGHT, LEFT};
 	private static final String TAG = "UVCCameraTextureView";
 	private int mLayoutWidth, mLayoutHeight;
 	private float mAspectRatio, mLayoutAspectRatio;
-	private int mRotation = 0;
+	private int mRotation = 0, mScaleX = 1, mScaleY = 1;
+	private TransState mTransState = TransState.UP;
+	private OnTransStateChangeListener mListener = null;
+
+	public interface OnTransStateChangeListener {
+		public void onTransStateChange(TransState state);
+	}
+
+	public void setOnTransStateChangeListener(OnTransStateChangeListener listener) {
+		mListener = listener;
+	}
 
 	public UVCCameraTextureView(final Context context) {
 		this(context, null, 0);
@@ -73,6 +83,7 @@ public class UVCCameraTextureView extends TextureView {  // API >= 14
 			mRotation = 0;
 		setHeightWidth();
 		setRotation(mRotation);
+		setTransState(TransState.CUSTOM);
 	}
 
 	public void leftRotate() {
@@ -81,14 +92,51 @@ public class UVCCameraTextureView extends TextureView {  // API >= 14
 			mRotation = 270;
 		setHeightWidth();
 		setRotation(mRotation);
+		setTransState(TransState.CUSTOM);
 	}
 
 	public void toggleMirror() {
 		if (mRotation == 0 || mRotation == 180) {
-			setScaleX(-getScaleX());
+			mScaleX = -mScaleX;
+			setScaleX(mScaleX);
 		} else {
-			setScaleY(-getScaleY());
+			mScaleY = -mScaleY;
+			setScaleY(mScaleY);
 		}
+		setTransState(TransState.CUSTOM);
+	}
+
+	public void setPosition(TransState state) {
+		switch (state) {
+			case CUSTOM:
+				return;
+			case UP:
+				mRotation = 0;
+				mScaleX = 1;
+				mScaleY = 1;
+				break;
+			case DOWN:
+				mRotation = 180;
+				mScaleX = 1;
+				mScaleY = 1;
+				break;
+			case LEFT:
+				mRotation = 90;
+				mScaleX = 1;
+				mScaleY = 1;
+				break;
+			case RIGHT:
+				mRotation = 270;
+				mScaleX = 1;
+				mScaleY = 1;
+				break;
+		}
+
+		setHeightWidth();
+		setRotation(mRotation);
+		setScaleX(mScaleX);
+		setScaleY(mScaleY);
+		setTransState(state);
 	}
 
 	@Override
@@ -104,6 +152,14 @@ public class UVCCameraTextureView extends TextureView {  // API >= 14
 		Bitmap resmap = Bitmap.createBitmap(origin, 0, 0, width, height, matrix, false);
 
 		return resmap;
+	}
+
+	private void setTransState(TransState state) {
+		if (mTransState != state) {
+			mTransState = state;
+			if (mListener != null)
+				mListener.onTransStateChange(state);
+		}
 	}
 
 	private void setHeightWidth() {

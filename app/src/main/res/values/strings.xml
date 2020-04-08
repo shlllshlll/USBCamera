@@ -5,8 +5,15 @@
     <string name="diag_about_title">About</string>
     <string name="diag_about_message">This is USBCamera APP.</string>
     <string name='diag_usbinfo_title'>USB Info</string>
-    <string name="msg_permissiondeny">Get germission failed, exiting...</string>
+    <string name="msg_permissiondeny">Get permission failed, exiting...</string>
     <string name="acra_notification_text">Sorry, the application crashed. Please send the report to the developer.</string>
     <string name="acra_notification_title">USB Camera Crash</string>
-    <string name="acra_notification_channel">"ACRA</string>
+    <string name="acra_notification_channel">ACRA</string>
+    <string name="fab_right">Right</string>
+    <string name="fab_left">Left</string>
+    <string name="fab_down">Down</string>
+    <string name="fab_up">Up</string>
+    <string name="fab_mirror">Mirror</string>
+    <string name="fab_rotate_right">Rotate Right</string>
+    <string name="fab_rotate_left">Rotate Left</string>
 </resources>
