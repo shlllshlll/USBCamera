@@ -9,11 +9,12 @@
     <string name="acra_notification_text">Sorry, the application crashed. Please send the report to the developer.</string>
     <string name="acra_notification_title">USB Camera Crash</string>
     <string name="acra_notification_channel">ACRA</string>
-    <string name="fab_right">Right</string>
-    <string name="fab_left">Left</string>
-    <string name="fab_down">Down</string>
-    <string name="fab_up">Up</string>
-    <string name="fab_mirror">Mirror</string>
-    <string name="fab_rotate_right">Rotate Right</string>
-    <string name="fab_rotate_left">Rotate Left</string>
+    <string name="fab_front_right">Front to Right</string>
+    <string name="fab_front_left">Front to Left</string>
+    <string name="fab_front_down">Front to Down</string>
+    <string name="fab_front_up">Front to Up</string>
+    <string name="fab_back_right">Back to Right</string>
+    <string name="fab_back_left">Back to Left</string>
+    <string name="fab_back_down">Back to Down</string>
+    <string name="fab_back_up">Back to Up</string>
 </resources>

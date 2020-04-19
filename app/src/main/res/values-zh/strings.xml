@@ -9,11 +9,12 @@
     <string name="acra_notification_text">抱歉程序崩溃了，请将错误报告发送给开发者。</string>
     <string name="acra_notification_title">USB摄像头崩溃了</string>
     <string name="acra_notification_channel">ACRA</string>
-    <string name="fab_right">右向</string>
-    <string name="fab_left">左向</string>
-    <string name="fab_down">倒向</string>
-    <string name="fab_up">正向</string>
-    <string name="fab_mirror">镜像</string>
-    <string name="fab_rotate_right">右转</string>
-    <string name="fab_rotate_left">左转</string>
+    <string name="fab_front_right">正面向右</string>
+    <string name="fab_front_left">正面向左</string>
+    <string name="fab_front_down">正面向下</string>
+    <string name="fab_front_up">正面向上</string>
+    <string name="fab_back_right">反面向右</string>
+    <string name="fab_back_left">反面向左</string>
+    <string name="fab_back_down">反面向下</string>
+    <string name="fab_back_up">反面向上</string>
 </resources>

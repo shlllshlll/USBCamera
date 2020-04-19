@@ -46,104 +46,7 @@
         app:maxImageSize="@dimen/fab_max_icon" />
 
     <LinearLayout
-        android:id="@+id/fab_mirror_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:layout_margin="@dimen/fab_margin_small"
-        android:gravity="center_vertical"
-        android:layout_gravity="bottom|start" >
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_mirror"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            app:srcCompat="@drawable/ic_mirror"
-            app:fabCustomSize="@dimen/fab_small"
-            app:maxImageSize="@dimen/fab_small_icon"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/fab_mirror_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:paddingLeft="@dimen/fab_padding"
-            android:text="@string/fab_mirror"
-            android:visibility="gone" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/fab_rotate_right_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:layout_margin="@dimen/fab_margin_small"
-        android:gravity="center_vertical"
-        android:layout_gravity="bottom|start" >
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_rotate_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            app:srcCompat="@drawable/ic_right_rotate"
-            app:fabCustomSize="@dimen/fab_small"
-            app:maxImageSize="@dimen/fab_small_icon"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/fab_rotate_right_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:paddingLeft="@dimen/fab_padding"
-            android:text="@string/fab_rotate_right"
-            android:visibility="gone" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/fab_rotate_left_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:layout_margin="@dimen/fab_margin_small"
-        android:gravity="center_vertical"
-        android:layout_gravity="bottom|start" >
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_rotate_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            app:srcCompat="@drawable/ic_left_rotate"
-            app:fabCustomSize="@dimen/fab_small"
-            app:maxImageSize="@dimen/fab_small_icon"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/fab_rotate_left_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:paddingLeft="@dimen/fab_padding"
-            android:text="@string/fab_rotate_left"
-            android:visibility="gone" />
-    </LinearLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_transform"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|left"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_transform"
-        app:fabCustomSize="@dimen/fab_mid"
-        app:maxImageSize="@dimen/fab_mid_icon" />
-
-    <LinearLayout
-        android:id="@+id/fab_right_layout"
+        android:id="@+id/fab_back_down_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
@@ -152,27 +55,28 @@
         android:layout_gravity="bottom|end" >
 
         <TextView
-            android:id="@+id/fab_right_text"
+            android:id="@+id/fab_back_down_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             android:paddingRight="@dimen/fab_padding"
-            android:text="@string/fab_right"
+            android:text="@string/fab_back_down"
             android:visibility="gone" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_right"
+            android:id="@+id/fab_back_down"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            app:srcCompat="@drawable/ic_right"
+            android:rotation="180"
+            app:srcCompat="@drawable/ic_cam_back"
             app:fabCustomSize="@dimen/fab_small"
             app:maxImageSize="@dimen/fab_small_icon"
             android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/fab_left_layout"
+        android:id="@+id/fab_front_down_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
@@ -181,27 +85,28 @@
         android:layout_gravity="bottom|end" >
 
         <TextView
-            android:id="@+id/fab_left_text"
+            android:id="@+id/fab_front_down_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             android:paddingRight="@dimen/fab_padding"
-            android:text="@string/fab_left"
+            android:text="@string/fab_front_down"
             android:visibility="gone" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_left"
+            android:id="@+id/fab_front_down"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            app:srcCompat="@drawable/ic_left"
+            android:rotation="180"
+            app:srcCompat="@drawable/ic_cam_front"
             app:fabCustomSize="@dimen/fab_small"
             app:maxImageSize="@dimen/fab_small_icon"
             android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/fab_down_layout"
+        android:id="@+id/fab_back_right_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
@@ -210,27 +115,28 @@
         android:layout_gravity="bottom|end" >
 
         <TextView
-            android:id="@+id/fab_down_text"
+            android:id="@+id/fab_back_right_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             android:paddingRight="@dimen/fab_padding"
-            android:text="@string/fab_down"
+            android:text="@string/fab_back_right"
             android:visibility="gone" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_down"
+            android:id="@+id/fab_back_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            app:srcCompat="@drawable/ic_down"
+            android:rotation="90"
+            app:srcCompat="@drawable/ic_cam_back"
             app:fabCustomSize="@dimen/fab_small"
             app:maxImageSize="@dimen/fab_small_icon"
             android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/fab_up_layout"
+        android:id="@+id/fab_front_right_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
@@ -239,20 +145,139 @@
         android:layout_gravity="bottom|end" >
 
         <TextView
-            android:id="@+id/fab_up_text"
+            android:id="@+id/fab_front_right_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             android:paddingRight="@dimen/fab_padding"
-            android:text="@string/fab_up"
+            android:text="@string/fab_front_right"
             android:visibility="gone" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_up"
+            android:id="@+id/fab_front_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            app:srcCompat="@drawable/ic_up"
+            android:rotation="90"
+            app:srcCompat="@drawable/ic_cam_front"
+            app:fabCustomSize="@dimen/fab_small"
+            app:maxImageSize="@dimen/fab_small_icon"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fab_back_left_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:layout_margin="@dimen/fab_margin_small"
+        android:gravity="center_vertical"
+        android:layout_gravity="bottom|end" >
+
+        <TextView
+            android:id="@+id/fab_back_left_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:paddingRight="@dimen/fab_padding"
+            android:text="@string/fab_back_left"
+            android:visibility="gone" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_back_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:rotation="270"
+            app:srcCompat="@drawable/ic_cam_back"
+            app:fabCustomSize="@dimen/fab_small"
+            app:maxImageSize="@dimen/fab_small_icon"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fab_front_left_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:layout_margin="@dimen/fab_margin_small"
+        android:gravity="center_vertical"
+        android:layout_gravity="bottom|end" >
+
+        <TextView
+            android:id="@+id/fab_front_left_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:paddingRight="@dimen/fab_padding"
+            android:text="@string/fab_front_left"
+            android:visibility="gone" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_front_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:rotation="270"
+            app:srcCompat="@drawable/ic_cam_front"
+            app:fabCustomSize="@dimen/fab_small"
+            app:maxImageSize="@dimen/fab_small_icon"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fab_back_up_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:layout_margin="@dimen/fab_margin_small"
+        android:gravity="center_vertical"
+        android:layout_gravity="bottom|end" >
+
+        <TextView
+            android:id="@+id/fab_back_up_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:paddingRight="@dimen/fab_padding"
+            android:text="@string/fab_back_up"
+            android:visibility="gone" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_back_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            app:srcCompat="@drawable/ic_cam_back"
+            app:fabCustomSize="@dimen/fab_small"
+            app:maxImageSize="@dimen/fab_small_icon"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fab_front_up_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:layout_margin="@dimen/fab_margin_small"
+        android:gravity="center_vertical"
+        android:layout_gravity="bottom|end" >
+
+        <TextView
+            android:id="@+id/fab_front_up_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:paddingRight="@dimen/fab_padding"
+            android:text="@string/fab_front_up"
+            android:visibility="gone" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_front_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            app:srcCompat="@drawable/ic_cam_front"
             app:fabCustomSize="@dimen/fab_small"
             app:maxImageSize="@dimen/fab_small_icon"
             android:visibility="gone" />
@@ -264,7 +289,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_up"
+        app:srcCompat="@drawable/ic_cam_front"
         app:fabCustomSize="@dimen/fab_mid"
         app:maxImageSize="@dimen/fab_mid_icon" />
 

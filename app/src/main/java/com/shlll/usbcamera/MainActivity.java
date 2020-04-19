@@ -28,7 +28,6 @@ import java.util.function.Function;
 public class MainActivity extends AppCompatActivity {
     private UVCCameraTextureView mUVCCameraView;
     private USBCameraHelper mUSBCameraHelper;
-    boolean isLeftFABOpen = false;
     boolean isRightFABOpen = false;
 
     @Override
@@ -49,55 +48,76 @@ public class MainActivity extends AppCompatActivity {
         mUSBCameraHelper = new USBCameraHelper(this, mUVCCameraView, frame_layout);
 
         FloatingActionButton fab_capture = findViewById(R.id.fab_capture),
-                fab_transform = findViewById(R.id.fab_transform),
-                fab_mirror = findViewById(R.id.fab_mirror),
-                fab_rotate_right = findViewById(R.id.fab_rotate_right),
-                fab_rotate_left = findViewById(R.id.fab_rotate_left),
-                fab_up = findViewById(R.id.fab_up),
-                fab_down = findViewById(R.id.fab_down),
-                fab_right = findViewById(R.id.fab_right),
-                fab_left = findViewById(R.id.fab_left),
-                fab_pos = findViewById(R.id.fab_pos);
-        LinearLayout fab_mirror_layout = findViewById(R.id.fab_mirror_layout),
-                fab_rotate_right_layout = findViewById(R.id.fab_rotate_right_layout),
-                fab_rotate_left_layout = findViewById(R.id.fab_rotate_left_layout),
-                fab_right_layout = findViewById(R.id.fab_right_layout),
-                fab_left_layout = findViewById(R.id.fab_left_layout),
-                fab_down_layout = findViewById(R.id.fab_down_layout),
-                fab_up_layout = findViewById(R.id.fab_up_layout);
-        TextView fab_mirror_text = findViewById(R.id.fab_mirror_text),
-                fab_rotate_right_text = findViewById(R.id.fab_rotate_right_text),
-                fab_rotate_left_text = findViewById(R.id.fab_rotate_left_text),
-                fab_right_text = findViewById(R.id.fab_right_text),
-                fab_left_text = findViewById(R.id.fab_left_text),
-                fab_down_text = findViewById(R.id.fab_down_text),
-                fab_up_text = findViewById(R.id.fab_up_text);
+                fab_pos = findViewById(R.id.fab_pos),
+                fab_front_up = findViewById(R.id.fab_front_up),
+                fab_front_down = findViewById(R.id.fab_front_down),
+                fab_front_right = findViewById(R.id.fab_front_right),
+                fab_front_left = findViewById(R.id.fab_front_left),
+                fab_back_up = findViewById(R.id.fab_back_up),
+                fab_back_down = findViewById(R.id.fab_back_down),
+                fab_back_right = findViewById(R.id.fab_back_right),
+                fab_back_left = findViewById(R.id.fab_back_left);
+        LinearLayout fab_front_right_layout = findViewById(R.id.fab_front_right_layout),
+                fab_front_left_layout = findViewById(R.id.fab_front_left_layout),
+                fab_front_down_layout = findViewById(R.id.fab_front_down_layout),
+                fab_front_up_layout = findViewById(R.id.fab_front_up_layout),
+                fab_back_right_layout = findViewById(R.id.fab_back_right_layout),
+                fab_back_left_layout = findViewById(R.id.fab_back_left_layout),
+                fab_back_down_layout = findViewById(R.id.fab_back_down_layout),
+                fab_back_up_layout = findViewById(R.id.fab_back_up_layout);
+        TextView  fab_front_right_text = findViewById(R.id.fab_front_right_text),
+                fab_front_left_text = findViewById(R.id.fab_front_left_text),
+                fab_front_down_text = findViewById(R.id.fab_front_down_text),
+                fab_front_up_text = findViewById(R.id.fab_front_up_text),
+                fab_back_right_text = findViewById(R.id.fab_back_right_text),
+                fab_back_left_text = findViewById(R.id.fab_back_left_text),
+                fab_back_down_text = findViewById(R.id.fab_back_down_text),
+                fab_back_up_text = findViewById(R.id.fab_back_up_text);
 
-        fab_mirror_layout.animate().setListener(new Animator.AnimatorListener() {
+        fab_front_up_layout.animate().setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                if (!isLeftFABOpen) {
-                    fab_mirror_text.setVisibility(View.GONE);
-                    fab_rotate_right_text.setVisibility(View.GONE);
-                    fab_rotate_left_text.setVisibility(View.GONE);
-
+                if (!isRightFABOpen) {
+                    fab_front_right_text.setVisibility(View.GONE);
+                    fab_front_left_text.setVisibility(View.GONE);
+                    fab_front_down_text.setVisibility(View.GONE);
+                    fab_front_up_text.setVisibility(View.GONE);
+                    fab_back_right_text.setVisibility(View.GONE);
+                    fab_back_left_text.setVisibility(View.GONE);
+                    fab_back_down_text.setVisibility(View.GONE);
+                    fab_back_up_text.setVisibility(View.GONE);
                 } else {
-                    fab_mirror.setVisibility(View.VISIBLE);
-                    fab_rotate_right.setVisibility(View.VISIBLE);
-                    fab_rotate_left.setVisibility(View.VISIBLE);
+                    fab_front_up.setVisibility(View.VISIBLE);
+                    fab_front_down.setVisibility(View.VISIBLE);
+                    fab_front_right.setVisibility(View.VISIBLE);
+                    fab_front_left.setVisibility(View.VISIBLE);
+                    fab_back_up.setVisibility(View.VISIBLE);
+                    fab_back_down.setVisibility(View.VISIBLE);
+                    fab_back_right.setVisibility(View.VISIBLE);
+                    fab_back_left.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if (!isLeftFABOpen) {
-                    fab_mirror.setVisibility(View.GONE);
-                    fab_rotate_right.setVisibility(View.GONE);
-                    fab_rotate_left.setVisibility(View.GONE);
+                if (!isRightFABOpen) {
+                    fab_front_up.setVisibility(View.GONE);
+                    fab_front_down.setVisibility(View.GONE);
+                    fab_front_right.setVisibility(View.GONE);
+                    fab_front_left.setVisibility(View.GONE);
+                    fab_back_up.setVisibility(View.GONE);
+                    fab_back_down.setVisibility(View.GONE);
+                    fab_back_right.setVisibility(View.GONE);
+                    fab_back_left.setVisibility(View.GONE);
                 } else {
-                    fab_mirror_text.setVisibility(View.VISIBLE);
-                    fab_rotate_right_text.setVisibility(View.VISIBLE);
-                    fab_rotate_left_text.setVisibility(View.VISIBLE);
+                    fab_front_right_text.setVisibility(View.VISIBLE);
+                    fab_front_left_text.setVisibility(View.VISIBLE);
+                    fab_front_down_text.setVisibility(View.VISIBLE);
+                    fab_front_up_text.setVisibility(View.VISIBLE);
+                    fab_back_right_text.setVisibility(View.VISIBLE);
+                    fab_back_left_text.setVisibility(View.VISIBLE);
+                    fab_back_down_text.setVisibility(View.VISIBLE);
+                    fab_back_up_text.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -111,70 +131,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        fab_right_layout.animate().setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                if (!isRightFABOpen) {
-                    fab_right_text.setVisibility(View.GONE);
-                    fab_left_text.setVisibility(View.GONE);
-                    fab_down_text.setVisibility(View.GONE);
-                    fab_up_text.setVisibility(View.GONE);
-
-                } else {
-                    fab_right.setVisibility(View.VISIBLE);
-                    fab_left.setVisibility(View.VISIBLE);
-                    fab_down.setVisibility(View.VISIBLE);
-                    fab_up.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                if (!isRightFABOpen) {
-                    fab_right.setVisibility(View.GONE);
-                    fab_left.setVisibility(View.GONE);
-                    fab_down.setVisibility(View.GONE);
-                    fab_up.setVisibility(View.GONE);
-                } else {
-                    fab_right_text.setVisibility(View.VISIBLE);
-                    fab_left_text.setVisibility(View.VISIBLE);
-                    fab_down_text.setVisibility(View.VISIBLE);
-                    fab_up_text.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
-
-        Function<Boolean, Boolean> animateTransformFabMenu = (open)-> {
-            if(isLeftFABOpen == open)
-                return false;
-
-            if(!isLeftFABOpen) {
-                isLeftFABOpen = true;
-                fab_mirror_layout.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_3));
-                fab_rotate_right_layout.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_2));
-                fab_rotate_left_layout.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_1));
-                fab_transform.setImageResource(R.drawable.ic_x);
-            } else {
-                isLeftFABOpen = false;
-                fab_mirror_layout.animate().translationY(0);
-                fab_rotate_right_layout.animate().translationY(0);
-                fab_rotate_left_layout.animate().translationY(0);
-                fab_transform.setImageResource(R.drawable.ic_transform);
-            }
-
-            return true;
-        };
 
         Function<Boolean, Boolean> animatePosFabMenu = (open)-> {
             if(isRightFABOpen == open)
@@ -182,16 +138,24 @@ public class MainActivity extends AppCompatActivity {
 
             if(!isRightFABOpen) {
                 isRightFABOpen = true;
-                fab_right_layout.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_1));
-                fab_left_layout.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_2));
-                fab_down_layout.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_3));
-                fab_up_layout.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_4));
+                fab_front_up_layout.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_1));
+                fab_back_up_layout.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_2));
+                fab_front_left_layout.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_3));
+                fab_back_left_layout.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_4));
+                fab_front_right_layout.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_5));
+                fab_back_right_layout.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_6));
+                fab_front_down_layout.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_7));
+                fab_back_down_layout.animate().translationY(-getResources().getDimension(R.dimen.fab_menu_8));
             } else {
                 isRightFABOpen = false;
-                fab_right_layout.animate().translationY(0);
-                fab_left_layout.animate().translationY(0);
-                fab_down_layout.animate().translationY(0);
-                fab_up_layout.animate().translationY(0);
+                fab_front_up_layout.animate().translationY(0);
+                fab_back_up_layout.animate().translationY(0);
+                fab_front_left_layout.animate().translationY(0);
+                fab_back_left_layout.animate().translationY(0);
+                fab_front_right_layout.animate().translationY(0);
+                fab_back_right_layout.animate().translationY(0);
+                fab_front_down_layout.animate().translationY(0);
+                fab_back_down_layout.animate().translationY(0);
             }
 
             return true;
@@ -210,25 +174,45 @@ public class MainActivity extends AppCompatActivity {
                 switch (state) {
                     case CUSTOM:
                         fab_pos.setImageResource(R.drawable.ic_none);
+                        fab_pos.setRotation(0);
+                        return;
+                    case BACK_UP:
+                        fab_pos.setImageResource(R.drawable.ic_cam_back);
+                        fab_pos.setRotation(0);
                         break;
-                    case RIGHT:
-                        fab_pos.setImageResource(R.drawable.ic_right);
+                    case FRONT_UP:
+                        fab_pos.setImageResource(R.drawable.ic_cam_front);
+                        fab_pos.setRotation(0);
                         break;
-                    case LEFT:
-                        fab_pos.setImageResource(R.drawable.ic_left);
+                    case BACK_DOWN:
+                        fab_pos.setImageResource(R.drawable.ic_cam_back);
+                        fab_pos.setRotation(180);
                         break;
-                    case UP:
-                        fab_pos.setImageResource(R.drawable.ic_up);
+                    case FRONT_DOWN:
+                        fab_pos.setImageResource(R.drawable.ic_cam_front);
+                        fab_pos.setRotation(180);
                         break;
-                    case DOWN:
-                        fab_pos.setImageResource(R.drawable.ic_down);
+                    case BACK_LEFT:
+                        fab_pos.setImageResource(R.drawable.ic_cam_back);
+                        fab_pos.setRotation(270);
+                        break;
+                    case FRONT_LEFT:
+                        fab_pos.setImageResource(R.drawable.ic_cam_front);
+                        fab_pos.setRotation(270);
+                        break;
+                    case BACK_RIGHT:
+                        fab_pos.setImageResource(R.drawable.ic_cam_back);
+                        fab_pos.setRotation(90);
+                        break;
+                    case FRONT_RIGHT:
+                        fab_pos.setImageResource(R.drawable.ic_cam_front);
+                        fab_pos.setRotation(90);
                         break;
                 }
             }
         });
 
         frame_layout.setOnClickListener((view)->{
-            animateTransformFabMenu.apply(false);
             animatePosFabMenu.apply(false);
         });
 
@@ -236,25 +220,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mUSBCameraHelper.saveCapturePicture();
-//                throw new RuntimeException("Crash APP");
             }
         });
 
-        fab_transform.setOnClickListener((view)->animateTransformFabMenu.apply(true ^ isLeftFABOpen));
         fab_pos.setOnClickListener((view)->animatePosFabMenu.apply(true ^ isRightFABOpen));
-        fab_mirror.setOnClickListener((view)->mUSBCameraHelper.toggleMirror());
-        fab_rotate_right.setOnClickListener((view)->mUSBCameraHelper.rightRotate());
-        fab_rotate_left.setOnClickListener((view)->mUSBCameraHelper.leftRotate());
-        fab_up.setOnClickListener((view)->mUSBCameraHelper.setPosition(UVCCameraTextureView.TransState.UP));
-        fab_down.setOnClickListener((view)->mUSBCameraHelper.setPosition(UVCCameraTextureView.TransState.DOWN));
-        fab_left.setOnClickListener((view)->mUSBCameraHelper.setPosition(UVCCameraTextureView.TransState.LEFT));
-        fab_right.setOnClickListener((view)->mUSBCameraHelper.setPosition(UVCCameraTextureView.TransState.RIGHT));
+        fab_front_up.setOnClickListener((view)->mUSBCameraHelper.setPosition(UVCCameraTextureView.TransState.FRONT_UP));
+        fab_front_down.setOnClickListener((view)->mUSBCameraHelper.setPosition(UVCCameraTextureView.TransState.FRONT_DOWN));
+        fab_front_left.setOnClickListener((view)->mUSBCameraHelper.setPosition(UVCCameraTextureView.TransState.FRONT_LEFT));
+        fab_front_right.setOnClickListener((view)->mUSBCameraHelper.setPosition(UVCCameraTextureView.TransState.FRONT_RIGHT));
+        fab_back_up.setOnClickListener((view)->mUSBCameraHelper.setPosition(UVCCameraTextureView.TransState.BACK_UP));
+        fab_back_down.setOnClickListener((view)->mUSBCameraHelper.setPosition(UVCCameraTextureView.TransState.BACK_DOWN));
+        fab_back_left.setOnClickListener((view)->mUSBCameraHelper.setPosition(UVCCameraTextureView.TransState.BACK_LEFT));
+        fab_back_right.setOnClickListener((view)->mUSBCameraHelper.setPosition(UVCCameraTextureView.TransState.BACK_RIGHT));
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        //就多一个参数this
         PermissionsUtils.getInstance().onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 

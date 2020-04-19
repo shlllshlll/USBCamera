@@ -39,12 +39,22 @@ import android.widget.FrameLayout;
  * XXX it is better that can set the aspect raton a a xml property
  */
 public class UVCCameraTextureView extends TextureView {
-	public enum TransState {CUSTOM, UP, DOWN, RIGHT, LEFT};
+	public enum TransState {
+		CUSTOM,
+		FRONT_UP,
+		FRONT_DOWN,
+		FRONT_RIGHT,
+		FRONT_LEFT,
+		BACK_UP,
+		BACK_DOWN,
+		BACK_RIGHT,
+		BACK_LEFT
+	};
 	private static final String TAG = "UVCCameraTextureView";
 	private int mLayoutWidth, mLayoutHeight;
 	private float mAspectRatio, mLayoutAspectRatio;
 	private int mRotation = 0, mScaleX = 1, mScaleY = 1;
-	private TransState mTransState = TransState.UP;
+	private TransState mTransState = TransState.FRONT_UP;
 	private OnTransStateChangeListener mListener = null;
 
 	public interface OnTransStateChangeListener {
@@ -107,26 +117,48 @@ public class UVCCameraTextureView extends TextureView {
 	}
 
 	public void setPosition(TransState state) {
+		boolean mirrored = false;
+
 		switch (state) {
 			case CUSTOM:
 				return;
-			case UP:
+			case BACK_UP:
+				mRotation = 0;
+				mScaleX = -1;
+				mScaleY = 1;
+				break;
+			case FRONT_UP:
 				mRotation = 0;
 				mScaleX = 1;
 				mScaleY = 1;
 				break;
-			case DOWN:
+			case BACK_DOWN:
+				mRotation = 180;
+				mScaleX = -1;
+				mScaleY = 1;
+				break;
+			case FRONT_DOWN:
 				mRotation = 180;
 				mScaleX = 1;
 				mScaleY = 1;
 				break;
-			case LEFT:
-				mRotation = 90;
+			case BACK_LEFT:
+				mRotation = 270;
+				mScaleX = 1;
+				mScaleY = -1;
+				break;
+			case FRONT_LEFT:
+				mRotation = 270;
 				mScaleX = 1;
 				mScaleY = 1;
 				break;
-			case RIGHT:
-				mRotation = 270;
+			case BACK_RIGHT:
+				mRotation = 90;
+				mScaleX = 1;
+				mScaleY = -1;
+				break;
+			case FRONT_RIGHT:
+				mRotation = 90;
 				mScaleX = 1;
 				mScaleY = 1;
 				break;

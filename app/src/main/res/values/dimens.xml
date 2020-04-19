@@ -7,11 +7,15 @@
     <dimen name="fab_max_icon">65dp</dimen>
     <dimen name="fab_icon">30dp</dimen>
     <dimen name="fab_mid">53dp</dimen>
-    <dimen name="fab_mid_icon">26dp</dimen>
+    <dimen name="fab_mid_icon">40dp</dimen>
     <dimen name="fab_small">45dp</dimen>
     <dimen name="fab_small_icon">22dp</dimen>
     <dimen name="fab_menu_1">60dp</dimen>
     <dimen name="fab_menu_2">115dp</dimen>
     <dimen name="fab_menu_3">170dp</dimen>
     <dimen name="fab_menu_4">225dp</dimen>
+    <dimen name="fab_menu_5">280dp</dimen>
+    <dimen name="fab_menu_6">335dp</dimen>
+    <dimen name="fab_menu_7">390dp</dimen>
+    <dimen name="fab_menu_8">445dp</dimen>
 </resources>
