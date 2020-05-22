@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Surface;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
@@ -238,44 +239,48 @@ public class USBCameraHelper {
             queueEvent(new Runnable() {
                 @Override
                 public void run() {
-                    final UVCCamera camera = new UVCCamera();
-                    camera.open(ctrlBlock);
-                    camera.setButtonCallback(new IButtonCallback() {
-                        @Override
-                        public void onButton(final int button, final int state) {
-                            ((Activity)mContext).runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (mButtonListener != null)
-                                        mButtonListener.onCameraButton();
-                                }
-                            });
-                        }
-                    });
-
-                    if (mPreviewSurface != null) {
-                        mPreviewSurface.release();
-                        mPreviewSurface = null;
-                    }
                     try {
-                        camera.setPreviewSize(UVCCamera.DEFAULT_PREVIEW_WIDTH, UVCCamera.DEFAULT_PREVIEW_HEIGHT, UVCCamera.FRAME_FORMAT_MJPEG);
-                    } catch (final IllegalArgumentException e) {
-                        // fallback to YUV mode
-                        try {
-                            camera.setPreviewSize(UVCCamera.DEFAULT_PREVIEW_WIDTH, UVCCamera.DEFAULT_PREVIEW_HEIGHT, UVCCamera.DEFAULT_PREVIEW_MODE);
-                        } catch (final IllegalArgumentException e1) {
-                            camera.destroy();
-                            return;
+                        final UVCCamera camera = new UVCCamera();
+                        camera.open(ctrlBlock);
+                        camera.setButtonCallback(new IButtonCallback() {
+                            @Override
+                            public void onButton(final int button, final int state) {
+                                ((Activity)mContext).runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (mButtonListener != null)
+                                            mButtonListener.onCameraButton();
+                                    }
+                                });
+                            }
+                        });
+
+                        if (mPreviewSurface != null) {
+                            mPreviewSurface.release();
+                            mPreviewSurface = null;
                         }
-                    }
-                    final SurfaceTexture st = mUVCCameraView.getSurfaceTexture();
-                    if (st != null) {
-                        mPreviewSurface = new Surface(st);
-                        camera.setPreviewDisplay(mPreviewSurface);
-                        camera.startPreview();
-                    }
-                    synchronized (mSync) {
-                        mUVCCamera = camera;
+                        try {
+                            camera.setPreviewSize(UVCCamera.DEFAULT_PREVIEW_WIDTH, UVCCamera.DEFAULT_PREVIEW_HEIGHT, UVCCamera.FRAME_FORMAT_MJPEG);
+                        } catch (final IllegalArgumentException e) {
+                            // fallback to YUV mode
+                            try {
+                                camera.setPreviewSize(UVCCamera.DEFAULT_PREVIEW_WIDTH, UVCCamera.DEFAULT_PREVIEW_HEIGHT, UVCCamera.DEFAULT_PREVIEW_MODE);
+                            } catch (final IllegalArgumentException e1) {
+                                camera.destroy();
+                                return;
+                            }
+                        }
+                        final SurfaceTexture st = mUVCCameraView.getSurfaceTexture();
+                        if (st != null) {
+                            mPreviewSurface = new Surface(st);
+                            camera.setPreviewDisplay(mPreviewSurface);
+                            camera.startPreview();
+                        }
+                        synchronized (mSync) {
+                            mUVCCamera = camera;
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "onConnect: ", e);
                     }
                 }
             }, 0);
